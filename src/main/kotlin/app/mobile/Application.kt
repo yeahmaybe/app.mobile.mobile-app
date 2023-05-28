@@ -12,8 +12,8 @@ fun main() {
     Database.connect(
         url="jdbc:postgresql://localhost:5432/mobile-app",
         driver="org.postgresql.Driver",
-        user = "postgres",
-        password="postgres"
+        //user = "postgres",
+        //password="postgres"
     )
 
     embeddedServer(CIO, port = 8081, host = "0.0.0.0", module = Application::module)
