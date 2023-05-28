@@ -10,14 +10,15 @@ import org.jetbrains.exposed.sql.Database
 
 fun main() {
     Database.connect(
-        url="jdbc:postgresql://localhost:5432/mobile-app",
+        url=System.getenv("POSTGRES"),
+        //url="jdbc:postgresql://localhost:5432/mobile-app",
         driver="org.postgresql.Driver",
         //user = "postgres",
         //password="postgres"
     )
 
     embeddedServer(CIO,
-        port = 8081,
+        port = System.getenv("PORT").toInt(),
         //host = "0.0.0.0",
         module = Application::module)
         .start(wait = true)
