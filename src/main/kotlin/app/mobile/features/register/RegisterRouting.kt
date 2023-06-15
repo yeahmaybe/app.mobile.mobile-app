@@ -14,13 +14,13 @@ fun Application.configureRegisterRouting() {
     routing {
         post("/signup") {
             val registerController = RegisterController(call)
-            registerController.registerUser()
 
             val receive = call.receive<RegisterReceiveRemote>()
             if(!receive.email.isValidEmail()) {
                 call.respond(HttpStatusCode.BadRequest, "Email не валидный")
             }
 
+            registerController.registerUser()
 
         }
     }

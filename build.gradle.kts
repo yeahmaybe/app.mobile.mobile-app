@@ -24,13 +24,28 @@ repositories {
     mavenCentral()
 }
 
+ktor {
+    docker {
+        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_11)
+
+        portMappings.set(listOf(
+            io.ktor.plugin.features.DockerPortMapping(
+                8081,
+                8080,
+                io.ktor.plugin.features.DockerPortMappingProtocol.TCP
+            )
+        ))
+    }
+}
+
+
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-cio-jvm:$ktor_version")
+
     implementation("org.postgresql:postgresql:$postgres_version")
     //implementation("com.h2database:h2:$h2_version")
-    implementation("io.ktor:ktor-server-cio-jvm:$ktor_version")
     //implementation("androidx.core:core-ktx:$kotlin_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
@@ -38,6 +53,11 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
+
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:$kotlin_version")
+
+
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
